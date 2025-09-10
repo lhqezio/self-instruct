@@ -7,25 +7,47 @@ Use Gemma 3 1B to iteratively expand the dataset using Self-Instruct principles
 import json
 import argparse
 import random
+import os
 from typing import List, Dict
 from pathlib import Path
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 class Gemma3SelfGrowth:
-    def __init__(self, model_name: str = "google/gemma-2-1b", device: str = "auto"):
+    def __init__(self, model_name: str = "google/gemma-2-1b-it", device: str = "auto", hf_token: str = None):
         """Initialize Gemma 3 1B model for self-growth"""
         
         self.model_name = model_name
         self.device = device
         
+        # Get HF token from parameter or environment
+        if hf_token:
+            self.hf_token = hf_token
+        else:
+            self.hf_token = os.getenv("HUGGINGFACE_TOKEN")
+        
+        if not self.hf_token:
+            print("Warning: No Hugging Face token provided. Some models may require authentication.")
+            print("Set HUGGINGFACE_TOKEN environment variable or pass --hf_token")
+        
         print(f"Loading {model_name}...")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            torch_dtype=torch.float16,
-            device_map=device
-        )
+        
+        # Load tokenizer with token
+        tokenizer_kwargs = {}
+        if self.hf_token:
+            tokenizer_kwargs["token"] = self.hf_token
+        
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name, **tokenizer_kwargs)
+        
+        # Load model with token
+        model_kwargs = {
+            "torch_dtype": torch.float16,
+            "device_map": device
+        }
+        if self.hf_token:
+            model_kwargs["token"] = self.hf_token
+        
+        self.model = AutoModelForCausalLM.from_pretrained(model_name, **model_kwargs)
         
         # Set pad token
         if self.tokenizer.pad_token is None:
@@ -178,8 +200,9 @@ def main():
     parser.add_argument("--input_file", required=True, help="Input data file from bootstrap phase")
     parser.add_argument("--output_file", default="data/self_growth/gemma3_expanded.jsonl", help="Output file")
     parser.add_argument("--growth_rounds", type=int, default=3, help="Number of growth rounds")
-    parser.add_argument("--model_name", default="google/gemma-2-1b", help="Gemma 3 1B model name")
+    parser.add_argument("--model_name", default="google/gemma-3-1b-it", help="Gemma 3 1B model name")
     parser.add_argument("--device", default="auto", help="Device to use")
+    parser.add_argument("--hf_token", help="Hugging Face token for model access")
     
     args = parser.parse_args()
     
@@ -191,7 +214,7 @@ def main():
     print(f"Loaded {len(initial_data)} initial examples")
     
     # Initialize self-growth
-    self_growth = Gemma3SelfGrowth(args.model_name, args.device)
+    self_growth = Gemma3SelfGrowth(args.model_name, args.device, args.hf_token)
     
     print(f"Starting Gemma 3 1B self-growth phase...")
     print(f"Growth rounds: {args.growth_rounds}")

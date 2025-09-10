@@ -1,4 +1,4 @@
-# Hybrid Self-Instruct for Conversational NPCs
+# Conversational Large Seeding Self Instruct
 
 An experimental approach combining GPT-5 Mini bootstrap with Gemma 3 1B self-growth to enhance Small Language Model (SLM) capabilities for game NPC conversational tasks.
 

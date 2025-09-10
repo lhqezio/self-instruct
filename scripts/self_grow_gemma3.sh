@@ -6,6 +6,15 @@
 echo "Starting Gemma 3 1B Self-Growth Phase"
 echo "======================================"
 
+# Check for Hugging Face token
+if [ -z "$HUGGINGFACE_TOKEN" ]; then
+    echo "ERROR: Please set your Hugging Face token:"
+    echo "export HUGGINGFACE_TOKEN='your-token-here'"
+    echo ""
+    echo "Get your token from: https://huggingface.co/settings/tokens"
+    exit 1
+fi
+
 # Check if input data exists
 if [ ! -f "data/bootstrap/gpt5_mini_bootstrap.jsonl" ]; then
     echo "ERROR: Bootstrap data not found. Please run bootstrap_gpt5_mini.sh first."
@@ -21,7 +30,8 @@ python src/self_growth/gemma3_self_growth.py \
     --input_file data/bootstrap/gpt5_mini_bootstrap.jsonl \
     --output_file data/self_growth/gemma3_expanded.jsonl \
     --growth_rounds 3 \
-    --model_name "google/gemma-2-1b"
+    --model_name "google/gemma-3-1b-it" \
+    --hf_token "$HUGGINGFACE_TOKEN"
 
 echo "Gemma 3 1B Self-Growth Phase Complete!"
 echo "Expanded data: data/self_growth/gemma3_expanded.jsonl"
