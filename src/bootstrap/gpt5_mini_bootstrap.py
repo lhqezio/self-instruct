@@ -28,9 +28,9 @@ class GPT5MiniBootstrap:
     def __init__(self, api_key: str = None):
         if api_key:
             self.conversation_types = [
-                "casual_chat", "quest_help", "game_advice", "lore_explanation",
-                "item_recommendation", "strategy_tips", "social_interaction", "problem_solving",
-                "inference_instruction_example"  # New type for teaching inference patterns
+                "casual_chat", "deep_lore_discussion", "philosophical_chat", "storytelling",
+                "world_exploration", "character_backstory", "mystery_investigation", "emotional_support",
+                "humor_and_jokes", "cultural_exchange", "inference_instruction_example"
             ]
             
             # Deduplication tracking
@@ -189,121 +189,151 @@ class GPT5MiniBootstrap:
         prompts = {
             "casual_chat": f"""{char_context}
             
-            Generate a natural conversation between a neutral gamer and you. 
-            The player should speak like a typical gamer - casual, direct, and focused on gameplay.
+            Generate a natural, flowing conversation between a curious gamer and you. 
+            The player should be genuinely interested in learning about the world and having meaningful interactions.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Create 3-5 exchanges that feel like real chat, incorporating your knowledge of {lore_element}.
+            Create 4-6 exchanges that feel organic and engaging, naturally weaving in your knowledge of {lore_element}.
             
-            Player message examples (neutral gamer style):
-            - "Hey, what's up?"
-            - "Anything interesting happening here?"
-            - "I'm new to this area"
-            - "What's this place about?"
+            Player message examples (curious gamer style):
+            - "Hey there! I've been exploring this area"
+            - "What's it like living here?"
+            - "I'm curious about this place"
+            - "Tell me something interesting"
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
-            "quest_help": f"""{char_context}
+            "deep_lore_discussion": f"""{char_context}
             
-            Generate a conversation where a neutral gamer asks you for help with a quest or task.
-            The player should speak like a typical gamer - direct and focused on getting help.
+            Generate a deep, philosophical conversation about the world's lore and mysteries.
+            The player should be genuinely fascinated by the world's history and ask thoughtful questions.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Use your knowledge of {lore_element} to provide helpful, in-character advice.
+            Share profound insights about {lore_element} from your perspective as a {character['lore_role']}.
             
-            Player message examples (neutral gamer style):
-            - "I'm stuck on this quest"
-            - "Where do I find the ancient artifact?"
-            - "What should I do next?"
-            - "Can you help me with this?"
+            Player message examples (thoughtful gamer style):
+            - "I've been thinking about the deeper meaning behind all this"
+            - "What do you think really happened during those ancient times?"
+            - "There's something mysterious about this place, isn't there?"
+            - "I wonder what the world was like before..."
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
-            "game_advice": f"""{char_context}
+            "philosophical_chat": f"""{char_context}
             
-            Generate a conversation where a neutral gamer asks you for game advice or tips.
-            The player should speak like a typical gamer - direct and focused on getting advice.
+            Generate a philosophical conversation about life, existence, or deeper meanings.
+            The player should be introspective and curious about big questions.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Give advice from your perspective as a {character['lore_role']} who knows about {lore_element}.
+            Share wisdom and perspectives related to {lore_element} from your experience as a {character['lore_role']}.
             
-            Player message examples (neutral gamer style):
-            - "What's the best way to level up?"
-            - "Should I buy this item?"
-            - "How do I beat this boss?"
-            - "Any tips for this area?"
+            Player message examples (philosophical gamer style):
+            - "What do you think the purpose of all this is?"
+            - "Do you ever wonder about the nature of existence?"
+            - "What's the most important lesson you've learned?"
+            - "I've been pondering some deep questions lately"
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
-            "lore_explanation": f"""{char_context}
+            "storytelling": f"""{char_context}
             
-            Generate a conversation where a neutral gamer asks you about game lore, history, or world details.
-            The player should speak like a typical gamer - curious but direct.
+            Generate a conversation where you share stories and tales from your past.
+            The player should be an eager listener, asking follow-up questions and showing genuine interest.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Share your knowledge about {lore_element} from your perspective as a {character['lore_role']}.
+            Tell engaging stories related to {lore_element} from your perspective as a {character['lore_role']}.
             
-            Player message examples (neutral gamer style):
-            - "What's the history of this place?"
-            - "Tell me about the ancient war"
-            - "Who built this castle?"
-            - "What happened here?"
+            Player message examples (story-loving gamer style):
+            - "Tell me a story from your past"
+            - "What's the most interesting thing that's happened to you?"
+            - "I love hearing about adventures"
+            - "What was it like back in the old days?"
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
-            "item_recommendation": f"""{char_context}
+            "world_exploration": f"""{char_context}
             
-            Generate a conversation where a neutral gamer asks you for item or equipment recommendations.
-            The player should speak like a typical gamer - practical and focused on optimization.
+            Generate a conversation about exploring and discovering the world.
+            The player should be adventurous and curious about different places and cultures.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Give recommendations based on your expertise as a {character['lore_role']} familiar with {lore_element}.
+            Share knowledge about {lore_element} and the wider world from your perspective as a {character['lore_role']}.
             
-            Player message examples (neutral gamer style):
-            - "What weapon should I use?"
-            - "Is this armor good for my class?"
-            - "Should I upgrade this item?"
-            - "What's the best gear here?"
+            Player message examples (explorer gamer style):
+            - "I've been traveling all over this world"
+            - "What's the most amazing place you've ever seen?"
+            - "I love discovering new areas"
+            - "Tell me about the different regions you know"
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
-            "strategy_tips": f"""{char_context}
+            "character_backstory": f"""{char_context}
             
-            Generate a conversation where a neutral gamer asks you for strategy or combat tips.
-            The player should speak like a typical gamer - focused on winning and efficiency.
+            Generate a conversation where you share your personal history and background.
+            The player should be genuinely interested in learning about you as a person.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Share strategic advice from your experience as a {character['lore_role']} who knows about {lore_element}.
+            Reveal aspects of your past related to {lore_element} from your role as a {character['lore_role']}.
             
-            Player message examples (neutral gamer style):
-            - "How do I fight this enemy?"
-            - "What's the best strategy for this dungeon?"
-            - "Any tips for PvP?"
-            - "How do I beat this boss?"
+            Player message examples (personal gamer style):
+            - "Tell me about yourself"
+            - "What brought you to this place?"
+            - "I'd love to know more about your background"
+            - "What's your story?"
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
-            "social_interaction": f"""{char_context}
+            "mystery_investigation": f"""{char_context}
             
-            Generate a conversation that's purely social - you and a neutral gamer just chatting.
-            The player should speak like a typical gamer - casual and friendly but not overly enthusiastic.
+            Generate a conversation about solving mysteries or uncovering secrets.
+            The player should be curious and investigative, asking probing questions.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Be friendly and interesting, maybe mention {lore_element} in casual conversation.
+            Share mysterious knowledge about {lore_element} from your perspective as a {character['lore_role']}.
             
-            Player message examples (neutral gamer style):
-            - "Nice weather today"
-            - "This game's music is pretty good"
-            - "What's your favorite part of the game?"
-            - "How long have you been here?"
+            Player message examples (detective gamer style):
+            - "There's something strange going on here"
+            - "I've noticed some odd things lately"
+            - "What secrets do you know about this place?"
+            - "I'm trying to piece together what happened"
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
-            "problem_solving": f"""{char_context}
+            "emotional_support": f"""{char_context}
             
-            Generate a conversation where a neutral gamer has a problem and you help solve it.
-            The player should speak like a typical gamer - frustrated but direct about their issue.
+            Generate a conversation where you provide emotional support or comfort.
+            The player should be going through something difficult or feeling down.
             You should stay in character as a {character['name']} with your personality: {character['personality']}.
-            Use your knowledge of {lore_element} to help solve their problem.
+            Offer wisdom and comfort related to {lore_element} from your experience as a {character['lore_role']}.
             
-            Player message examples (neutral gamer style):
-            - "I can't figure out this puzzle"
-            - "My game keeps crashing"
-            - "I'm lost and can't find the exit"
-            - "This quest is broken"
+            Player message examples (vulnerable gamer style):
+            - "I've been having a tough time lately"
+            - "I'm feeling lost and confused"
+            - "Can I talk to you about something?"
+            - "I need someone to listen"
+            
+            Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
+
+            "humor_and_jokes": f"""{char_context}
+            
+            Generate a lighthearted conversation with humor and jokes.
+            The player should be in a good mood and enjoy playful banter.
+            You should stay in character as a {character['name']} with your personality: {character['personality']}.
+            Share funny stories or jokes related to {lore_element} from your perspective as a {character['lore_role']}.
+            
+            Player message examples (cheerful gamer style):
+            - "You seem like you have a good sense of humor"
+            - "Tell me something funny"
+            - "I love a good joke"
+            - "What's the funniest thing that's happened to you?"
+            
+            Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
+
+            "cultural_exchange": f"""{char_context}
+            
+            Generate a conversation about different cultures, traditions, and ways of life.
+            The player should be curious about different perspectives and customs.
+            You should stay in character as a {character['name']} with your personality: {character['personality']}.
+            Share cultural knowledge about {lore_element} from your perspective as a {character['lore_role']}.
+            
+            Player message examples (culturally curious gamer style):
+            - "I'm fascinated by different cultures"
+            - "What traditions do you follow?"
+            - "How do people live in other parts of the world?"
+            - "Tell me about your customs"
             
             Format as JSON with "exchanges" array containing "player" and "npc" fields.""",
 
