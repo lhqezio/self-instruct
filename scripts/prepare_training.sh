@@ -7,8 +7,8 @@ echo "Starting Training Data Preparation Phase"
 echo "========================================"
 
 # Check if self-growth data exists
-if [ ! -f "data/self_growth/gemma_expanded.jsonl" ]; then
-    echo "ERROR: Self-growth data not found. Please run self_grow_gemma.sh first."
+if [ ! -f "data/self_growth/gemma3_expanded.jsonl" ]; then
+    echo "ERROR: Self-growth data not found. Please run self_grow_gemma3.sh first."
     exit 1
 fi
 
@@ -20,7 +20,7 @@ echo "Processing and cleaning data..."
 
 # Filter quality and remove duplicates
 python src/utils/data_processor.py \
-    --input_file data/self_growth/gemma_expanded.jsonl \
+    --input_file data/self_growth/gemma3_expanded.jsonl \
     --output_file data/final/processed_data.jsonl \
     --filter_quality \
     --deduplicate \

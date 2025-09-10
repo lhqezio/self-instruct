@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-GPT-4 Bootstrap Phase
-Generate high-quality conversational examples using GPT-4
+GPT-5 Mini Bootstrap Phase
+Generate high-quality conversational examples using GPT-5 Mini
 """
 
 import json
@@ -12,7 +12,7 @@ import random
 from typing import List, Dict
 from pathlib import Path
 
-class GPT4Bootstrap:
+class GPT5MiniBootstrap:
     def __init__(self, api_key: str = None):
         if api_key:
             openai.api_key = api_key
@@ -34,7 +34,7 @@ class GPT4Bootstrap:
             
             try:
                 response = openai.ChatCompletion.create(
-                    model="gpt-4",
+                    model="gpt-5-mini",
                     messages=[{"role": "user", "content": prompt}],
                     max_tokens=1000,
                     temperature=0.8
@@ -198,7 +198,7 @@ class GPT4Bootstrap:
                     'input': exchange['player'],
                     'output': exchange['npc'],
                     'scenario_type': scenario['type'],
-                    'source': 'gpt4_bootstrap'
+                    'source': 'gpt5_mini_bootstrap'
                 })
         
         return training_data
@@ -216,17 +216,17 @@ class GPT4Bootstrap:
         print(f"Saved {len(data)} examples to {output_file}")
 
 def main():
-    parser = argparse.ArgumentParser(description="GPT-4 Bootstrap Phase")
+    parser = argparse.ArgumentParser(description="GPT-5 Mini Bootstrap Phase")
     parser.add_argument("--num_scenarios", type=int, default=500, help="Number of scenarios to generate")
-    parser.add_argument("--output_file", default="data/bootstrap/gpt4_bootstrap.jsonl", help="Output file")
+    parser.add_argument("--output_file", default="data/bootstrap/gpt5_mini_bootstrap.jsonl", help="Output file")
     parser.add_argument("--api_key", help="OpenAI API key")
     
     args = parser.parse_args()
     
     # Initialize bootstrap
-    bootstrap = GPT4Bootstrap(args.api_key)
+    bootstrap = GPT5MiniBootstrap(args.api_key)
     
-    print(f"Starting GPT-4 bootstrap phase...")
+    print(f"Starting GPT-5 Mini bootstrap phase...")
     print(f"Generating {args.num_scenarios} conversation scenarios...")
     
     # Generate scenarios
@@ -250,7 +250,7 @@ def main():
     for scenario_type, count in scenario_counts.items():
         print(f"  {scenario_type}: {count} examples")
     
-    print("\nGPT-4 bootstrap phase complete!")
+    print("\nGPT-5 Mini bootstrap phase complete!")
 
 if __name__ == "__main__":
     main()

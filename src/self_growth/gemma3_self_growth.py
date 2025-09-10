@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Gemma Self-Growth Phase
-Use Gemma to iteratively expand the dataset using Self-Instruct principles
+Gemma 3 1B Self-Growth Phase
+Use Gemma 3 1B to iteratively expand the dataset using Self-Instruct principles
 """
 
 import json
@@ -12,9 +12,9 @@ from pathlib import Path
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-class GemmaSelfGrowth:
-    def __init__(self, model_name: str = "google/gemma-1b", device: str = "auto"):
-        """Initialize Gemma model for self-growth"""
+class Gemma3SelfGrowth:
+    def __init__(self, model_name: str = "google/gemma-2-1b", device: str = "auto"):
+        """Initialize Gemma 3 1B model for self-growth"""
         
         self.model_name = model_name
         self.device = device
@@ -48,7 +48,7 @@ class GemmaSelfGrowth:
             new_conversation = self._generate_conversation(prompt)
             
             if new_conversation:
-                new_conversation['source'] = 'gemma_self_growth'
+                new_conversation['source'] = 'gemma3_self_growth'
                 new_conversations.append(new_conversation)
             
             if (i + 1) % 100 == 0:
@@ -174,11 +174,11 @@ class GemmaSelfGrowth:
         print(f"Saved {len(data)} examples to {output_file}")
 
 def main():
-    parser = argparse.ArgumentParser(description="Gemma Self-Growth Phase")
+    parser = argparse.ArgumentParser(description="Gemma 3 1B Self-Growth Phase")
     parser.add_argument("--input_file", required=True, help="Input data file from bootstrap phase")
-    parser.add_argument("--output_file", default="data/self_growth/gemma_expanded.jsonl", help="Output file")
+    parser.add_argument("--output_file", default="data/self_growth/gemma3_expanded.jsonl", help="Output file")
     parser.add_argument("--growth_rounds", type=int, default=3, help="Number of growth rounds")
-    parser.add_argument("--model_name", default="google/gemma-1b", help="Gemma model name")
+    parser.add_argument("--model_name", default="google/gemma-2-1b", help="Gemma 3 1B model name")
     parser.add_argument("--device", default="auto", help="Device to use")
     
     args = parser.parse_args()
@@ -191,9 +191,9 @@ def main():
     print(f"Loaded {len(initial_data)} initial examples")
     
     # Initialize self-growth
-    self_growth = GemmaSelfGrowth(args.model_name, args.device)
+    self_growth = Gemma3SelfGrowth(args.model_name, args.device)
     
-    print(f"Starting Gemma self-growth phase...")
+    print(f"Starting Gemma 3 1B self-growth phase...")
     print(f"Growth rounds: {args.growth_rounds}")
     
     # Perform iterative growth

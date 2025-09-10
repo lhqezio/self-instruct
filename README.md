@@ -1,27 +1,27 @@
 # Hybrid Self-Instruct for Conversational NPCs
 
-An experimental approach combining GPT-4 bootstrap with Gemma self-growth to enhance Small Language Model (SLM) capabilities for game NPC conversational tasks.
+An experimental approach combining GPT-5 Mini bootstrap with Gemma 3 1B self-growth to enhance Small Language Model (SLM) capabilities for game NPC conversational tasks.
 
 ## Motivation
 
-This project explores whether we can significantly improve the conversational abilities of small language models (like Gemma 1B) for game NPCs by:
+This project explores whether we can significantly improve the conversational abilities of small language models (like Gemma 3 1B) for game NPCs by:
 
-1. **Bootstrap Phase**: Using GPT-4's superior capabilities to generate high-quality conversational examples
-2. **Self-Growth Phase**: Having the target SLM (Gemma) learn from and expand upon its own generated outputs
+1. **Bootstrap Phase**: Using GPT-5 Mini's capabilities to generate high-quality conversational examples
+2. **Self-Growth Phase**: Having the target SLM (Gemma 3 1B) learn from and expand upon its own generated outputs
 3. **Conversational Focus**: Specializing the entire pipeline for natural, game-appropriate NPC interactions
 
 The goal is to create a cost-effective solution for game developers who need conversational NPCs but cannot afford to run large language models in real-time.
 
 ## Architecture Overview
 
-### Phase 1: GPT-4 Bootstrap
-- Generate high-quality conversational examples using GPT-4
+### Phase 1: GPT-5 Mini Bootstrap
+- Generate high-quality conversational examples using GPT-5 Mini
 - Create diverse NPC interaction patterns
 - Establish quality baseline for self-growth
 
-### Phase 2: Gemma Self-Growth 
-- Use Gemma to iteratively expand the dataset
-- Self-Instruct style bootstrapping with Gemma
+### Phase 2: Gemma 3 1B Self-Growth 
+- Use Gemma 3 1B to iteratively expand the dataset
+- Self-Instruct style bootstrapping with Gemma 3 1B
 - Grow from 1K → 5K → 10K+ examples
 
 ### Phase 3: Training & Deployment
@@ -32,11 +32,11 @@ The goal is to create a cost-effective solution for game developers who need con
 ## Quick Start
 
 ```bash
-# 1. Bootstrap with GPT-4
-./scripts/bootstrap_gpt4.sh
+# 1. Bootstrap with GPT-5 Mini
+./scripts/bootstrap_gpt5_mini.sh
 
-# 2. Self-grow with Gemma
-./scripts/self_grow_gemma.sh
+# 2. Self-grow with Gemma 3 1B
+./scripts/self_grow_gemma3.sh
 
 # 3. Prepare for training
 ./scripts/prepare_training.sh
@@ -46,13 +46,13 @@ The goal is to create a cost-effective solution for game developers who need con
 
 ```
 src/
-├── bootstrap/          # GPT-4 bootstrap phase
-├── self_growth/        # Gemma self-growth phase
+├── bootstrap/          # GPT-5 Mini bootstrap phase
+├── self_growth/        # Gemma 3 1B self-growth phase
 └── utils/              # Shared utilities
 
 data/
-├── bootstrap/          # GPT-4 generated data
-├── self_growth/        # Gemma expanded data
+├── bootstrap/          # GPT-5 Mini generated data
+├── self_growth/        # Gemma 3 1B expanded data
 └── final/              # Final training data
 
 scripts/                # Workflow scripts
@@ -61,8 +61,8 @@ scripts/                # Workflow scripts
 ## Key Innovation
 
 Instead of using the same model for both generation and self-growth, we use:
-- **GPT-4** for high-quality bootstrap (expensive but good)
-- **Gemma** for iterative self-growth (cheap and fast)
+- **GPT-5 Mini** for high-quality bootstrap (cost-effective and capable)
+- **Gemma 3 1B** for iterative self-growth (cheap and fast)
 
 This gives us the best of both worlds: quality + scalability.
 

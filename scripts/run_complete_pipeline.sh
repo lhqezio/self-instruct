@@ -14,10 +14,10 @@ if [ -z "$OPENAI_API_KEY" ]; then
     exit 1
 fi
 
-# Phase 1: GPT-4 Bootstrap
-echo "Phase 1: GPT-4 Bootstrap"
-echo "------------------------"
-./scripts/bootstrap_gpt4.sh
+# Phase 1: GPT-5 Mini Bootstrap
+echo "Phase 1: GPT-5 Mini Bootstrap"
+echo "------------------------------"
+./scripts/bootstrap_gpt5_mini.sh
 
 if [ $? -ne 0 ]; then
     echo "ERROR: Bootstrap phase failed!"
@@ -26,10 +26,10 @@ fi
 
 echo ""
 
-# Phase 2: Gemma Self-Growth
-echo "Phase 2: Gemma Self-Growth"
-echo "--------------------------"
-./scripts/self_grow_gemma.sh
+# Phase 2: Gemma 3 1B Self-Growth
+echo "Phase 2: Gemma 3 1B Self-Growth"
+echo "-------------------------------"
+./scripts/self_grow_gemma3.sh
 
 if [ $? -ne 0 ]; then
     echo "ERROR: Self-growth phase failed!"
@@ -53,8 +53,8 @@ echo "Complete Pipeline Finished Successfully!"
 echo "======================================="
 echo ""
 echo "Final Results:"
-echo "  - Bootstrap data: data/bootstrap/gpt4_bootstrap.jsonl"
-echo "  - Expanded data: data/self_growth/gemma_expanded.jsonl"
+echo "  - Bootstrap data: data/bootstrap/gpt5_mini_bootstrap.jsonl"
+echo "  - Expanded data: data/self_growth/gemma3_expanded.jsonl"
 echo "  - Training data: data/final/gemma_training_data.jsonl"
 echo ""
 echo "Your conversational NPC training data is ready!"
