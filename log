@@ -1,0 +1,4 @@
+Starting GPT-5 Mini Bootstrap Phase
+====================================
+ERROR: Please set your OpenAI API key:
+export OPENAI_API_KEY='your-api-key-here'

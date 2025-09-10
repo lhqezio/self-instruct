@@ -19,7 +19,7 @@ mkdir -p data/bootstrap
 # Run GPT-5 Mini bootstrap
 echo "Generating conversational scenarios with GPT-5 Mini..."
 python src/bootstrap/gpt5_mini_bootstrap.py \
-    --num_scenarios 500 \
+    --num_scenarios 5 \
     --output_file data/bootstrap/gpt5_mini_bootstrap.jsonl \
     --api_key "$OPENAI_API_KEY"
 
