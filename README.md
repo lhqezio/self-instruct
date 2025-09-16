@@ -15,7 +15,7 @@ The goal is to create a cost-effective solution for game developers who need con
 ## Architecture Overview
 
 ### Phase 1: GPT-5 Mini Bootstrap
-- Generate high-quality conversational examples using GPT-5 Mini
+- Generate high-quality conversational examples using GPT-5 Mini xx
 - Create diverse NPC interaction patterns
 - Establish quality baseline for self-growth
 
